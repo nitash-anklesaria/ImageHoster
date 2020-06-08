@@ -5,6 +5,8 @@ import ImageHoster.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Pattern;
+
 @Service
 public class UserService {
 
@@ -32,4 +34,18 @@ public class UserService {
         }
     }
 
+/*  This method checks the password entered by the user while registration, if it is compliant with the password policy of at-least 1 alphabet,
+    1 number and 1 special character. We make use of a regular expression and an inbuilt java function to match regular expressions.
+    If the password matches the criteria then it returns true else, it returns false*/
+    public boolean checkPasswordStrength(String password) {
+
+        String regEx = "((?=.*[A-Z])|(?=.*[a-z]))(?=.*[0-9])(?=.*\\W+).*$";
+
+        if(Pattern.matches(regEx,password)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
